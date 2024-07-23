@@ -8,6 +8,7 @@ namespace App\Controller;
 // on appelle le namespace des classes qu'on utilise
 // pour que symfony fasse le require de ces classes
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 // on étend la classe AbstractController

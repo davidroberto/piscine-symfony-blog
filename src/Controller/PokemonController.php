@@ -100,4 +100,7 @@ class PokemonController extends AbstractController
         return new Response($html, 200);
     }
 
+
+
+
 }
