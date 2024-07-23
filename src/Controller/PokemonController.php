@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class PokemonController extends AbstractController
 {
 
-    #[Route('/tngurufoei', name: 'list_pokemons')]
+    #[Route('/pokemons', name: 'list_pokemons')]
     public function listPokemons()
     {
 

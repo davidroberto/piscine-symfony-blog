@@ -1,11 +1,21 @@
-{% include 'partial/header.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+    Pokemon : Liste
+{% endblock %}
+
+{% block body %}
 
     <p>Les articles du blog : </p>
 
 
     {% for pokemon in pokemons %}
-        <p>{{ pokemon.title }}</p>
-        <p>Description : {{ pokemon.content }}</p>
+
+        {% if pokemon.isPublished %}
+            <p>{{ pokemon.title }}</p>
+            <p>Description : {{ pokemon.content }}</p>
+        {% endif %}
+
     {% endfor %}
 
-{% include 'partial/footer.html.twig' %}
+{% endblock %}

@@ -1,7 +1,13 @@
-{% include 'partial/header.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+    Pokemon : catégories
+{% endblock %}
+
+{% block body %}
 
 {% for category in categories %}
     <p>{{ category }}</p>
 {% endfor %}
 
-{% include 'partial/footer.html.twig' %}
+{% endblock %}

@@ -1,5 +1,10 @@
-{% include 'partial/header.html.twig' %}
+{% extends 'base.html.twig' %}
 
-<p>Hello</p>
 
-{% include 'partial/footer.html.twig' %}
+{% block metatitle %}
+    Pokemon : home page
+{% endblock %}
+
+{% block body %}
+    <p>Hello</p>
+{% endblock %}

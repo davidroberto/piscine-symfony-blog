@@ -1,17 +1,33 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block metatitle %}{% endblock %}</title>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+</head>
+<body>
+<header>
+    <nav class="header-nav">
+        <img class="header-logo" src="https://jolstatic.fr/www/captures/1951/6/58356.png" alt="pokemon logo">
+
+        <ul class="header-links">
+            <li><a href="{{ path("home") }}">Page d'accueil</a></li>
+            <li><a href="{{ path("list_pokemons") }}">Pokemons</a></li>
+            <li><a href="{{ path("list_pokemon_categories") }}">Categories</a></li>
+        </ul>
+    </nav>
+</header>
+
         {% block body %}{% endblock %}
-    </body>
+
+<footer>
+    <p>Copyright David Robert</p>
+</footer>
+
+</body>
 </html>
