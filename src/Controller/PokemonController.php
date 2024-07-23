@@ -6,12 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ArticleController extends AbstractController
+class PokemonController extends AbstractController
 {
 
-
-    #[Route('/articles', name: 'list_articles')]
-    public function listArticles()
+    #[Route('/tngurufoei', name: 'list_pokemons')]
+    public function listPokemons()
     {
 
         $pokemons = [
@@ -78,16 +77,27 @@ class ArticleController extends AbstractController
 
         ];
 
-        $html = $this->renderView('page/list_articles.html.twig', [
+
+        return $this->render('page/list_pokemons.html.twig', [
             'pokemons' => $pokemons
         ]);
 
+    }
+
+
+    #[Route('/pokemon-categories', name: 'list_pokemon_categories')]
+    public function listPokemonCategories()
+    {
+        $categories = [
+            'Red', 'Green', 'Blue', 'Yellow', 'Gold', 'Silver', 'Crystal'
+        ];
+
+
+        $html = $this->renderView('page/list_pokemon_categories.html.twig', [
+            'categories' => $categories
+        ]);
+
         return new Response($html, 200);
-
-        //return $this->render('page/list_articles.html.twig', [
-        //    'pokemons' => $pokemons
-        //]);
-
     }
 
 }

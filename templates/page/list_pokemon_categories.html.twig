@@ -1,5 +1,7 @@
 {% include 'partial/header.html.twig' %}
 
-<p>Hello</p>
+{% for category in categories %}
+    <p>{{ category }}</p>
+{% endfor %}
 
 {% include 'partial/footer.html.twig' %}
