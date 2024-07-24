@@ -9,6 +9,7 @@ namespace App\Controller;
 // pour que symfony fasse le require de ces classes
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 // on étend la classe AbstractController
@@ -25,7 +26,7 @@ class IndexController extends AbstractController
     // ça execute automatiquement la méthode
     // définit sous la route
     #[Route('/', name: 'home')]
-    public function index() {
+    public function index(): Response {
         return $this->render('page/index.html.twig');
     }
 

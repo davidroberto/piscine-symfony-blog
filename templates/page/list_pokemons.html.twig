@@ -16,7 +16,7 @@
                 <article class="pokemon">
                     <div class="pokemon-center">
                         <p>{{ pokemon.title }}</p>
-                        <a>Voir le pokemon</a>
+                        <a href="{{ path('show_pokemon') }}?id={{ pokemon.id }}" >Voir le pokemon</a>
                     </div>
 
                 </article>

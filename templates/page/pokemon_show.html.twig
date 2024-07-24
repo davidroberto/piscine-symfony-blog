@@ -6,5 +6,11 @@
 {% endblock %}
 
 {% block body %}
-    <p>{{ pokemon.title }}</p>
+
+    {% if pokemon and pokemon.isPublished %}
+         <p>{{ pokemon.title }}</p>
+    {% else %}
+        <p>Pokemon non trouvé</p>
+    {% endif %}
+
 {% endblock %}
