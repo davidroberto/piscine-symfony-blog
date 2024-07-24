@@ -8,14 +8,22 @@
 
     <p>Les articles du blog : </p>
 
+    <section class="pokemon-list">
 
-    {% for pokemon in pokemons %}
+        {% for pokemon in pokemons %}
 
-        {% if pokemon.isPublished %}
-            <p>{{ pokemon.title }}</p>
-            <p>Description : {{ pokemon.content }}</p>
-        {% endif %}
+            {% if pokemon.isPublished %}
+                <article class="pokemon">
+                    <div class="pokemon-center">
+                        <p>{{ pokemon.title }}</p>
+                        <a>Voir le pokemon</a>
+                    </div>
 
-    {% endfor %}
+                </article>
+            {% endif %}
+
+        {% endfor %}
+
+    </section>
 
 {% endblock %}

@@ -21,3 +21,18 @@
     padding: 5px;
     background-color: lightcoral;
 }
+
+.pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pokemon {
+    width: 33.33%;
+
+}
+
+.pokemon-center {
+    background-color: lightseagreen;
+    padding: 50px;
+}
