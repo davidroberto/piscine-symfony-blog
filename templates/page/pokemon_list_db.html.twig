@@ -12,15 +12,13 @@
 
         {% for pokemon in pokemons %}
 
-
                 <article class="pokemon">
                     <div class="pokemon-center">
                         <p>{{ pokemon.title }}</p>
-                        <img src="{{ pokemon.image }}" alt="{{ pokemon.title }}" />
+                        <a href="{{ path('pokemon_by_id_db', {id: pokemon.id}) }}">Voir le pokemon</a>
                     </div>
 
                 </article>
-
 
         {% endfor %}
 

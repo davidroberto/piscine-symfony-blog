@@ -141,5 +141,18 @@ class PokemonController extends AbstractController
         ]);
     }
 
+    #[Route('/pokemon-db/{id}', name: 'pokemon_by_id_db')]
+    public function showPokemonById(int $id, PokemonRepository $pokemonRepository): Response
+    {
+
+        $pokemon = $pokemonRepository->find($id);
+
+        return $this->render('page/pokemon_show_db.html.twig', [
+            'pokemon' => $pokemon
+        ]);
+
+
+    }
+
 
 }
