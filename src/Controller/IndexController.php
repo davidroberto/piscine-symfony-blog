@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // on créé un namespace
 // c'est à dire un chemin pour identifier la classe
 // actuelle
@@ -18,6 +20,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class IndexController extends AbstractController
 {
 
+
+
+
     // annotation
     // permet de créer une route
     // c'est à dire une nouvelle page
@@ -27,6 +32,10 @@ class IndexController extends AbstractController
     // définit sous la route
     #[Route('/', name: 'home')]
     public function index(): Response {
+
+
+
+
         return $this->render('page/index.html.twig');
     }
 

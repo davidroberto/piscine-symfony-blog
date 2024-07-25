@@ -6,21 +6,21 @@
 
 {% block body %}
 
-    <p>Les articles du blog : </p>
+    <p>Les pokes de la db : </p>
 
     <section class="pokemon-list">
 
         {% for pokemon in pokemons %}
 
-            {% if pokemon.isPublished %}
+
                 <article class="pokemon">
                     <div class="pokemon-center">
                         <p>{{ pokemon.title }}</p>
-                        <a href="{{ path('show_pokemon', {idPokemon: pokemon.id}) }}" >Voir le pokemon</a>
+                        <img src="{{ pokemon.image }}" alt="{{ pokemon.title }}" />
                     </div>
 
                 </article>
-            {% endif %}
+
 
         {% endfor %}
 

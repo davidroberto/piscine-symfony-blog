@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Repository\PokemonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -107,14 +108,12 @@ class PokemonController extends AbstractController
     }
 
 
-    #[Route('/pokemon-show', name: 'show_pokemon')]
+    #[Route('/pokemon-show/{idPokemon}', name: 'show_pokemon')]
     // injection de dépendance (ou "autowire") : on demande à Symfony
     // de créer une instance de la classe Request
     // dans la variable $request
-    public function showPokemon(Request $request): Response
+    public function showPokemon(int $idPokemon): Response
     {
-        $idPokemon = $request->query->get('id');
-
         $pokemonFound = null;
 
         foreach ($this->pokemons as $pokemon) {
@@ -127,6 +126,19 @@ class PokemonController extends AbstractController
             'pokemon' => $pokemonFound
         ]);
 
+    }
+
+
+    #[Route('/pokemon-list-db', name: 'pokemon_list_db')]
+    public function listPokemonFromDb(PokemonRepository $pokemonRepository) {
+        // récupèrer tous les pokemons en BDD
+
+        $pokemons = $pokemonRepository->findAll();
+
+
+        return $this->render('page/pokemon_list_db.html.twig', [
+            'pokemons' => $pokemons
+        ]);
     }
 
 
