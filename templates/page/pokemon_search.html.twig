@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block metatitle %}
+    Pokemon : search
+{% endblock %}
+
+{% block body %}
+
+   <section>
+       <h1>Rechercher un pokemon</h1>
+
+       <section>
+           {% if pokemon %}
+
+               <article class="pokemon">
+                   <div class="pokemon-center">
+                       <p>{{ pokemon.title }}</p>
+                       <img src="{{ pokemon.image }}" alt="{{ pokemon.title }}" />
+                       <p>{{ pokemon.description }}</p>
+                   </div>
+
+               </article>
+
+           {% endif %}
+       </section>
+
+       <form method="post" >
+
+           <label>
+               Nom
+               <input type="text" name="title"/>
+           </label>
+
+           <input type="submit">
+
+       </form>
+   </section>
+
+
+
+
+{% endblock %}

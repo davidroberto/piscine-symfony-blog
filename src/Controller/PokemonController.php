@@ -155,4 +155,20 @@ class PokemonController extends AbstractController
     }
 
 
+    #[Route('/pokemon-db/search/title', name: 'pokemon_search')]
+    public function searchPokemon(Request $request, PokemonRepository $pokemonRepository): Response
+    {
+        $titleSearched = $request->request->get('title');
+        $pokemonFound = $pokemonRepository->findOneBy(['title' => $titleSearched]);
+
+        if (!$pokemonFound) {
+            $html = $this->renderView('page/404.html.twig');
+            return new Response($html, 404);
+        }
+
+        return $this->render('page/pokemon_search.html.twig', [
+            'pokemon' => $pokemonFound
+        ]);
+    }
+
 }
