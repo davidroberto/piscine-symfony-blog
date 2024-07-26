@@ -25,7 +25,7 @@ class PokemonRepository extends ServiceEntityRepository
             ->setParameter('search', '%'.$search.'%')
             ->getQuery();
 
-        $pokemons = $query->getArrayResult();
+        $pokemons = $query->getResult();
 
         return $pokemons;
     }

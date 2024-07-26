@@ -78,4 +78,11 @@ class Pokemon
     }
 
 
+    public function listAttacks() {
+        if ($this->type === "Electrique") {
+            return ['electro punch', "seche cheveux dans la baignoire"];
+        }
+    }
+
+
 }
