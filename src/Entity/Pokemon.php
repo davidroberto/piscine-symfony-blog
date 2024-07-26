@@ -26,6 +26,15 @@ class Pokemon
     private string $type;
 
 
+    public function __construct($title, $description, $type, $image)
+    {
+        $this->title = $title;
+        $this->type = $type;
+        $this->description = $description;
+        $this->image = $image;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
