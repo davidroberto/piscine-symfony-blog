@@ -16,4 +16,18 @@ class PokemonRepository extends ServiceEntityRepository
         parent::__construct($registry, Pokemon::class);
     }
 
+    public function findLikeTitle($search)
+    {
+        $queryBuilder = $this->createQueryBuilder('pokemon');
+
+        $query = $queryBuilder->select('pokemon')
+            ->where('pokemon.title LIKE :search')
+            ->setParameter('search', '%'.$search.'%')
+            ->getQuery();
+
+        $pokemons = $query->getArrayResult();
+
+        return $pokemons;
+    }
+
 }

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use function PHPUnit\Framework\isEmpty;
 
 class PokemonController extends AbstractController
 {
@@ -158,14 +159,14 @@ class PokemonController extends AbstractController
     #[Route('/pokemon-db/search/title', name: 'pokemon_search')]
     public function searchPokemon(Request $request, PokemonRepository $pokemonRepository): Response
     {
-        $pokemonFound = null;
 
         if ($request->request->has('title')) {
 
             $titleSearched = $request->request->get('title');
-            $pokemonFound = $pokemonRepository->findOneBy(['title' => $titleSearched]);
 
-            if (!$pokemonFound) {
+            $pokemonsFound = $pokemonRepository->findLikeTitle($titleSearched);
+
+            if (count($pokemonsFound) === 0) {
                 $html = $this->renderView('page/404.html.twig');
                 return new Response($html, 404);
             }
@@ -173,7 +174,7 @@ class PokemonController extends AbstractController
         }
 
         return $this->render('page/pokemon_search.html.twig', [
-            'pokemon' => $pokemonFound
+            'pokemons' => $pokemonsFound
         ]);
     }
 

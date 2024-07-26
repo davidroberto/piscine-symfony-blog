@@ -10,7 +10,7 @@
        <h1>Rechercher un pokemon</h1>
 
        <section>
-           {% if pokemon %}
+           {% for pokemon in pokemons %}
 
                <article class="pokemon">
                    <div class="pokemon-center">
@@ -21,7 +21,7 @@
 
                </article>
 
-           {% endif %}
+           {% endfor %}
        </section>
 
        <form method="post" >
