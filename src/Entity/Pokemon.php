@@ -26,13 +26,7 @@ class Pokemon
     private string $type;
 
 
-    public function __construct($title, $description, $type, $image)
-    {
-        $this->title = $title;
-        $this->type = $type;
-        $this->description = $description;
-        $this->image = $image;
-    }
+
 
 
     public function getId(): ?int
@@ -47,6 +41,16 @@ class Pokemon
 
     public function setTitle(string $title): static
     {
+
+        // Pour gérer les contraintes de propriétés
+        // par exemple si un titre doit faire plus
+        // de X caractères
+        // on peut soulever une exception
+        // pour gérer l'erreur correctement
+        //if (strlen($title) < 3) {
+        //    throw new \Exception('trop court');
+        //}
+
         $this->title = $title;
 
         return $this;

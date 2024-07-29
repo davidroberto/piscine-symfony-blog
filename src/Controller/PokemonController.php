@@ -117,24 +117,39 @@ class PokemonController extends AbstractController
     {
         // j'instancie la classe de l'entité Pokemon
         // je remplis toutes ces propriétés (soit avec le constructor, qu'il faut créé, soit avec les setters)
-        $pokemon = new Pokemon(
-            'Roucoups',
-            'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
-            'vol',
-            'https://www.pokepedia.fr/images/thumb/d/dc/Roucoups-RFVF.png/1200px-Roucoups-RFVF.png'
-        );
+        //$pokemon = new Pokemon(
+        //    'Roucoups',
+        //    'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
+        //    'vol',
+        //    'https://www.pokepedia.fr/images/thumb/d/dc/Roucoups-RFVF.png/1200px-Roucoups-RFVF.png'
+        //);
 
-        // est équivalent à :
-        //$pokemon = new Pokemon();
-        //$pokemon->setTitle('Roucoups');
-        //$pokemon->setDescription('Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36');
-        //$pokemon->setImage('https://www.pokepedia.fr/images/thumb/d/dc/Roucoups-RFVF.png/1200px-Roucoups-RFVF.png');
 
-        $entityManager->persist($pokemon);
-        $entityManager->flush();
+        //$error = null;
+
+        // les try catch permettent d'executer du code, tout
+        // en récupérant les erreurs potentiels
+        // afin de les gérer correctement (affichage de page spécifique etc)
+        //try {
+            $pokemon = new Pokemon();
+            $pokemon->setTitle('Roucoups');
+            $pokemon->setDescription('Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36');
+            $pokemon->setImage('https://www.pokepedia.fr/images/thumb/d/dc/Roucoups-RFVF.png/1200px-Roucoups-RFVF.png');
+            $pokemon->setType('vol');
+
+            $entityManager->persist($pokemon);
+            $entityManager->flush();
+
+        //} catch(\Exception $errorMessage) {
+        //    $error = $errorMessage;
+        //}
+
+
+
 
         return $this->render('page/pokemon_insert_without_form.html.twig', [
-            'pokemon' => $pokemon
+            'pokemon' => $pokemon,
+        //    'error' => $error
         ]);
 
     }
