@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Pokemon;
+use App\Form\PokemonType;
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,6 @@ class PokemonController extends AbstractController
     #[Route('/pokemons', name: 'pokemon_list_db')]
     public function listPokemonFromDb(PokemonRepository $pokemonRepository) {
         // récupèrer tous les pokemons en BDD
-
         $pokemons = $pokemonRepository->findAll();
 
 
@@ -112,7 +112,7 @@ class PokemonController extends AbstractController
     }
 
 
-    #[Route('/pokemons/insert/without-form', name: 'insert_pokemon')]
+    #[Route('/pokemons/insert/form', name: 'insert_pokemon')]
     public function insertPokemon(EntityManagerInterface $entityManager, Request $request)
     {
 
@@ -159,6 +159,35 @@ class PokemonController extends AbstractController
             'pokemon' => $pokemon,
         ]);
 
+    }
+
+
+    #[Route('/pokemons/insert/form-builder', name: 'insert_pokemon_form_builder')]
+    public function insertPokemonFormBuilder(Request $request, EntityManagerInterface $entityManager)
+    {
+        // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
+
+        // je créé une instance de la classe d'entité Pokemon
+        $pokemon = new Pokemon();
+
+        // permet de générer une instance de la classe de gabarit de formulaire
+        // et de la lier avec l'instance de l'entité
+        $pokemonForm = $this->createForm(PokemonType::class, $pokemon);
+
+        // lie le formulaire avec la requête
+        $pokemonForm->handleRequest($request);
+
+
+        // si le formulaire a été envoyé et que ces données
+        // sont correctes
+        if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
+            $entityManager->persist($pokemon);
+            $entityManager->flush();
+        }
+
+        return $this->render('page/pokemon_insert_form_builder.html.twig', [
+            'pokemonForm' => $pokemonForm->createView()
+        ]);
     }
 
 }
