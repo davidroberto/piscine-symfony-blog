@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class PokemonController extends AbstractController
 {
@@ -163,7 +164,7 @@ class PokemonController extends AbstractController
 
 
     #[Route('/pokemons/insert/form-builder', name: 'insert_pokemon_form_builder')]
-    public function insertPokemonFormBuilder(Request $request, EntityManagerInterface $entityManager)
+    public function insertPokemonFormBuilder(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
         // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
 
@@ -177,6 +178,7 @@ class PokemonController extends AbstractController
         // lie le formulaire avec la requête
         $pokemonForm->handleRequest($request);
 
+
         // si le formulaire a été envoyé et que ces données
         // sont correctes
         if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
@@ -185,7 +187,7 @@ class PokemonController extends AbstractController
         }
 
         return $this->render('page/pokemon_insert_form_builder.html.twig', [
-            'pokemonForm' => $pokemonForm->createView()
+            'pokemonForm' => $pokemonForm->createView(),
         ]);
     }
 
