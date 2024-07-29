@@ -113,46 +113,52 @@ class PokemonController extends AbstractController
 
 
     #[Route('/pokemons/insert/without-form', name: 'insert_pokemon')]
-    public function insertPokemon(EntityManagerInterface $entityManager)
+    public function insertPokemon(EntityManagerInterface $entityManager, Request $request)
     {
-        // j'instancie la classe de l'entité Pokemon
-        // je remplis toutes ces propriétés (soit avec le constructor, qu'il faut créé, soit avec les setters)
-        //$pokemon = new Pokemon(
-        //    'Roucoups',
-        //    'Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36',
-        //    'vol',
-        //    'https://www.pokepedia.fr/images/thumb/d/dc/Roucoups-RFVF.png/1200px-Roucoups-RFVF.png'
-        //);
+
+        // j'initialise la variable
+        // $pokemon à null
+        // car on va l'envoyer à twig (et on fera une vérif dans twig)
+        $pokemon = null;
 
 
-        //$error = null;
+        // je vérifie si la requête est du POST
+        // donc si le form a été envoyé
+        if ($request->getMethod() === 'POST') {
 
-        // les try catch permettent d'executer du code, tout
-        // en récupérant les erreurs potentiels
-        // afin de les gérer correctement (affichage de page spécifique etc)
-        //try {
+
+            // je récupère les données envoyées par l'utilisateur
+            $title = $request->request->get('title');
+            $description = $request->request->get('description');
+            $image = $request->request->get('image');
+            $type = $request->request->get('type');
+
+            // j'instancie la classe pokemon
             $pokemon = new Pokemon();
-            $pokemon->setTitle('Roucoups');
-            $pokemon->setDescription('Roucoups est l évolution de Roucool au niveau 18, et il évolue en Roucarnage à partir du niveau 36');
-            $pokemon->setImage('https://www.pokepedia.fr/images/thumb/d/dc/Roucoups-RFVF.png/1200px-Roucoups-RFVF.png');
-            $pokemon->setType('vol');
 
+            // je passe en valeur des propriétés de la classe
+            // pokemon les données envoyées par l'utilisateur
+            // grâce aux fonctions setters
+            $pokemon->setTitle($title);
+            $pokemon->setDescription( $description);
+            $pokemon->setImage($image);
+            $pokemon->setType($type);
+
+
+            // j'enregistre l'instance de la classe
+            // pokemon dans la table pokemon
+            // grâce à la classe EntityManager
             $entityManager->persist($pokemon);
             $entityManager->flush();
-
-        //} catch(\Exception $errorMessage) {
-        //    $error = $errorMessage;
-        //}
+        }
 
 
-
-
+        // je retourne une réponse HTTP
+        // avec le html du formulaire
         return $this->render('page/pokemon_insert_without_form.html.twig', [
             'pokemon' => $pokemon,
-        //    'error' => $error
         ]);
 
     }
-
 
 }
