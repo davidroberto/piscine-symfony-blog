@@ -26,7 +26,6 @@ class Pokemon
     private ?string $image = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Email(['message' => 'Regarde ce que tu tapes'])]
     private string $type;
     
 

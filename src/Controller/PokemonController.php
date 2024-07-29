@@ -166,10 +166,42 @@ class PokemonController extends AbstractController
     #[Route('/pokemons/insert/form-builder', name: 'insert_pokemon_form_builder')]
     public function insertPokemonFormBuilder(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
-        // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
 
+        // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
         // je créé une instance de la classe d'entité Pokemon
         $pokemon = new Pokemon();
+
+        // permet de générer une instance de la classe de gabarit de formulaire
+        // et de la lier avec l'instance de l'entité
+        $pokemonForm = $this->createForm(PokemonType::class, $pokemon);
+
+        // lie le formulaire avec la requête
+        $pokemonForm->handleRequest($request);
+
+
+        // si le formulaire a été envoyé et que ces données
+        // sont correctes
+        if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
+            $entityManager->persist($pokemon);
+            $entityManager->flush();
+        }
+
+        return $this->render('page/pokemon_insert_form_builder.html.twig', [
+            'pokemonForm' => $pokemonForm->createView(),
+        ]);
+    }
+
+
+    #[Route('/pokemons/update/{id}', name: 'update_pokemon')]
+    public function updatePokemonFormBuilder(Request $request, EntityManagerInterface $entityManager, $id, PokemonRepository $pokemonRepository)
+    {
+
+        // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
+        // je récupère un pokemon par rapport à son id
+        // Doctrine et symfony me créé une instance de l'entité
+        // pokemon en remplissant les propriétés de l'instance par rapport
+        // à ce qu'il y dans les colonnes
+        $pokemon = $pokemonRepository->find($id);
 
         // permet de générer une instance de la classe de gabarit de formulaire
         // et de la lier avec l'instance de l'entité
