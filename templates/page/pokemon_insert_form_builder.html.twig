@@ -7,6 +7,31 @@
 
 {% block body %}
 
-    {{ form(pokemonForm) }}
+    {% if app.request.method == 'POST' %}
+        <p>Submitted</p>
+    {% endif %}
+
+    <img src="https://images.ladepeche.fr/api/v1/images/view/63be5ab8710f3629fa733f2d/large/image.jpg?v=1" />
+
+
+    {{ form_start(pokemonForm) }}
+
+        <div class="test">
+
+            {{ form_row(pokemonForm.title) }}
+
+
+
+        </div>
+
+        {{ form_row(pokemonForm.image) }}
+
+        {{ form_row(pokemonForm.description) }}
+
+        {{ form_row(pokemonForm.type) }}
+
+        {{ form_row(pokemonForm.valider) }}
+
+    {{ form_end(pokemonForm) }}
 
 {% endblock %}

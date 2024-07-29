@@ -177,7 +177,6 @@ class PokemonController extends AbstractController
         // lie le formulaire avec la requête
         $pokemonForm->handleRequest($request);
 
-
         // si le formulaire a été envoyé et que ces données
         // sont correctes
         if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
