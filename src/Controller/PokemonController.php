@@ -198,8 +198,10 @@ class PokemonController extends AbstractController
         $pokemonUpdateForm->handleRequest($request);
 
         if($pokemonUpdateForm->isSubmitted() && $pokemonUpdateForm->isValid()) {
+
             $entityManager->persist($pokemon);
             $entityManager->flush();
+            
         }
 
         $pokemonUpdateFormView = $pokemonUpdateForm->createView();

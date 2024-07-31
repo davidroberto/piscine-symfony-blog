@@ -17,6 +17,8 @@
                         <p>{{ pokemon.title }}</p>
                         <a href="{{ path('pokemon_by_id_db', {id: pokemon.id}) }}">Voir le pokemon</a>
                         <a href="{{ path('delete_pokemon', {id: pokemon.id}) }}">Supprimer le pokemon</a>
+                        <a href="{{ path('pokemon_update', {id: pokemon.id}) }}">Mettre à jour le pokemon</a>
+
 
                     </div>
 
