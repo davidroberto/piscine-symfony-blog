@@ -116,17 +116,14 @@ class PokemonController extends AbstractController
     #[Route('/pokemons/insert/form', name: 'insert_pokemon')]
     public function insertPokemon(EntityManagerInterface $entityManager, Request $request)
     {
-
         // j'initialise la variable
         // $pokemon à null
         // car on va l'envoyer à twig (et on fera une vérif dans twig)
         $pokemon = null;
 
-
         // je vérifie si la requête est du POST
         // donc si le form a été envoyé
         if ($request->getMethod() === 'POST') {
-
 
             // je récupère les données envoyées par l'utilisateur
             $title = $request->request->get('title');
@@ -166,61 +163,54 @@ class PokemonController extends AbstractController
     #[Route('/pokemons/insert/form-builder', name: 'insert_pokemon_form_builder')]
     public function insertPokemonFormBuilder(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
-
         // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
         // je créé une instance de la classe d'entité Pokemon
         $pokemon = new Pokemon();
 
         // permet de générer une instance de la classe de gabarit de formulaire
         // et de la lier avec l'instance de l'entité
-        $pokemonForm = $this->createForm(PokemonType::class, $pokemon);
+        $pokemonCreateForm = $this->createForm(PokemonType::class, $pokemon);
 
         // lie le formulaire avec la requête
-        $pokemonForm->handleRequest($request);
-
+        $pokemonCreateForm->handleRequest($request);
 
         // si le formulaire a été envoyé et que ces données
         // sont correctes
-        if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
+        if ($pokemonCreateForm->isSubmitted() && $pokemonCreateForm->isValid()) {
+
             $entityManager->persist($pokemon);
             $entityManager->flush();
         }
 
         return $this->render('page/pokemon_insert_form_builder.html.twig', [
-            'pokemonForm' => $pokemonForm->createView(),
+            'pokemonForm' => $pokemonCreateForm->createView(),
         ]);
     }
 
 
-    #[Route('/pokemons/update/{id}', name: 'update_pokemon')]
-    public function updatePokemonFormBuilder(Request $request, EntityManagerInterface $entityManager, $id, PokemonRepository $pokemonRepository)
+    #[Route('/pokemons/update/{id}', name:'pokemon_update')]
+    public function updatePokemon(int $id, PokemonRepository $pokemonRepository, Request $request, EntityManagerInterface $entityManager)
     {
-
-        // on a créé une classe de "gabarit de formulaire HTML" avec php bin/console make:form
-        // je récupère un pokemon par rapport à son id
-        // Doctrine et symfony me créé une instance de l'entité
-        // pokemon en remplissant les propriétés de l'instance par rapport
-        // à ce qu'il y dans les colonnes
         $pokemon = $pokemonRepository->find($id);
 
-        // permet de générer une instance de la classe de gabarit de formulaire
-        // et de la lier avec l'instance de l'entité
-        $pokemonForm = $this->createForm(PokemonType::class, $pokemon);
+        $pokemonUpdateForm = $this->createForm(PokemonType::class, $pokemon);
 
-        // lie le formulaire avec la requête
-        $pokemonForm->handleRequest($request);
+        $pokemonUpdateForm->handleRequest($request);
 
-
-        // si le formulaire a été envoyé et que ces données
-        // sont correctes
-        if ($pokemonForm->isSubmitted() && $pokemonForm->isValid()) {
+        if($pokemonUpdateForm->isSubmitted() && $pokemonUpdateForm->isValid()) {
             $entityManager->persist($pokemon);
             $entityManager->flush();
         }
 
-        return $this->render('page/pokemon_insert_form_builder.html.twig', [
-            'pokemonForm' => $pokemonForm->createView(),
+        $pokemonUpdateFormView = $pokemonUpdateForm->createView();
+
+        return $this->render('page/pokemon_update.html.twig', [
+            'pokemonUpdateForm' => $pokemonUpdateFormView
         ]);
+
+
+
     }
+
 
 }

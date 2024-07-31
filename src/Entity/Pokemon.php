@@ -16,6 +16,7 @@ class Pokemon
     private int $id;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull()]
     private string $title;
 
     #[ORM\Column(length: 255, nullable: true)]
