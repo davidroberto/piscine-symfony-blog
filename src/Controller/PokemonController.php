@@ -201,7 +201,7 @@ class PokemonController extends AbstractController
 
             $entityManager->persist($pokemon);
             $entityManager->flush();
-            
+
         }
 
         $pokemonUpdateFormView = $pokemonUpdateForm->createView();

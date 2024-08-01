@@ -20,14 +20,18 @@ class PokemonRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('pokemon');
 
-        $query = $queryBuilder->select('pokemon')
+        $query = $queryBuilder
+            ->select('pokemon')
             ->where('pokemon.title LIKE :search')
             ->setParameter('search', '%'.$search.'%')
+            ->leftJoin()
             ->getQuery();
 
         $pokemons = $query->getResult();
 
         return $pokemons;
     }
+
+
 
 }

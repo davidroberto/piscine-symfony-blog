@@ -28,6 +28,9 @@ class Pokemon
 
     #[ORM\Column(length: 255)]
     private string $type;
+
+    #[ORM\ManyToOne(inversedBy: 'pokemons')]
+    private ?Generation $generation = null;
     
 
     public function getId(): ?int
@@ -96,6 +99,18 @@ class Pokemon
         if ($this->type === "Electrique") {
             return ['electro punch', "seche cheveux dans la baignoire"];
         }
+    }
+
+    public function getGeneration(): ?Generation
+    {
+        return $this->generation;
+    }
+
+    public function setGeneration(?Generation $generation): static
+    {
+        $this->generation = $generation;
+
+        return $this;
     }
 
 
